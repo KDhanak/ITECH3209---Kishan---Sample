@@ -12,27 +12,37 @@
 <body>
     <h1>Login</h1>
 
-    <% if(messages.success_msg) { %>
-        <li>
-            <%= messages.success_msg %>
-        </li>
-        <% } %>
+    <ul>
+        <% if(messages.success_msg ) { %>
+            <li>
+                <%= messages.success_msg %>
+            </li>
+            <% } %>
+    </ul>
 
-            <form action="/users/login" method="POST">
-                <div>
-                    <input type="text" id="email" placeholder="Email" required>
-                </div>
-                <br>
-                <div>
-                    <input type="password" id="password" placeholder="Password" required>
-                </div>
-                <br>
-                <div>
-                    <input type="submit" value="Login">
-                </div>
-                <br>
-                <a href="/users/register">Don't have an account, Register here.</a>
-            </form>
+    <ul>
+        <% if(messages.error ) { %>
+            <li>
+                <%= messages.error %>
+            </li>
+            <% } %>
+    </ul>
+
+    <form action="/users/login" method="POST">
+        <div>
+            <input type="text" id="email" placeholder="Email" required>
+        </div>
+        <br>
+        <div>
+            <input type="password" id="password" placeholder="Password" required>
+        </div>
+        <br>
+        <div>
+            <input type="submit" value="Login">
+        </div>
+        <br>
+        <a href="/users/register">Don't have an account, Register here.</a>
+    </form>
 </body>
 
 </html>
