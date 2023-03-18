@@ -32,15 +32,15 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
-app.get("/users/register", (req, res) => {
+app.get("/users/register", checkAuthenticated, (req, res) => {
     res.render("register.ejs");
 });
 
-app.get("/users/login", (req, res) => {
+app.get("/users/login", checkAuthenticated, (req, res) => {
     res.render("login.ejs");
 });
 
-app.get("/users/dashboard", (req, res) => {
+app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
     res.render("dashboard.ejs", { user: req.user.name });
 });
 
@@ -125,6 +125,21 @@ app.post('/users/login',
         failureRedirect: "/users/login",
         failureFlash: true
     }));
+
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect("/users/dashboard");
+    }
+    next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/users/login");
+}
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
