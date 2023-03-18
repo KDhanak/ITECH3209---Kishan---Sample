@@ -41,7 +41,18 @@ app.get("/users/login", (req, res) => {
 });
 
 app.get("/users/dashboard", (req, res) => {
-    res.render("dashboard.ejs", { user: "Kishan" });
+    res.render("dashboard.ejs", { user: req.user.name });
+});
+
+app.get("/users/logout", (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success_msg', "You have logged out");
+        res.redirect("/users/login");
+    });
+
 });
 
 app.post('/users/register', async (req, res) => {
